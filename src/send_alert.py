@@ -159,10 +159,11 @@ def send_telegram_alert(dry_run: bool = False, force: bool = False) -> dict:
 
     resp = requests.post(
         f"https://api.telegram.org/bot{token}/sendMessage",
-        json={"chat_id": chat_id, "text": msg, "parse_mode": "Markdown"},
+        json={"chat_id": chat_id, "text": msg, "parse_mode": "Markdown", "disable_web_page_preview": True},
         timeout=15,
     )
-    resp.raise_for_status()
+    if not resp.ok:
+        raise RuntimeError(f"Telegram API error {resp.status_code}: {resp.text}")
 
     _save_state({
         "last_level": highest,

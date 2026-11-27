@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 data/raw/
 data/alert_state.json
+data/*.log
