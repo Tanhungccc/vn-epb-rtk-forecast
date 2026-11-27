@@ -1,0 +1,7 @@
+.env
+.venv/
+.obsidian/
+__pycache__/
+*.pyc
+data/raw/
+data/alert_state.json

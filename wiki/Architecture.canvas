@@ -1,0 +1,27 @@
+{
+	"nodes":[
+		{"id":"idx","type":"file","file":"00-Index.md","x":0,"y":-320,"width":280,"height":140,"color":"4"},
+		{"id":"goal","type":"file","file":"01-Muc-tieu-va-Lo-trinh.md","x":-360,"y":-320,"width":280,"height":140,"color":"6"},
+		{"id":"adr","type":"file","file":"05-Quyet-dinh-Ky-thuat.md","x":360,"y":-320,"width":280,"height":140,"color":"2"},
+		{"id":"igs","type":"file","file":"02-Nguon-du-lieu/Madrigal-TEC-ROTI.md","x":-420,"y":-60,"width":260,"height":140,"color":"1"},
+		{"id":"c2","type":"file","file":"02-Nguon-du-lieu/COSMIC-2-S4.md","x":-120,"y":-60,"width":260,"height":140,"color":"1"},
+		{"id":"omni","type":"file","file":"02-Nguon-du-lieu/NOAA-SWPC-OMNI.md","x":180,"y":-60,"width":260,"height":140,"color":"1"},
+		{"id":"phys","type":"file","file":"03-Vat-ly-va-Baseline.md","x":-280,"y":160,"width":280,"height":140,"color":"3"},
+		{"id":"ml","type":"file","file":"07-Mo-hinh-va-Hieu-chuan.md","x":60,"y":160,"width":300,"height":140,"color":"5"},
+		{"id":"exp","type":"file","file":"04-Nhat-ky-Thuc-nghiem.md","x":-280,"y":380,"width":280,"height":140,"color":"4"},
+		{"id":"dash","type":"file","file":"06-Dashboard-va-Van-hanh.md","x":60,"y":380,"width":300,"height":140,"color":"4"}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"goal","fromSide":"right","toNode":"idx","toSide":"left"},
+		{"id":"e2","fromNode":"idx","fromSide":"right","toNode":"adr","toSide":"left"},
+		{"id":"e3","fromNode":"idx","fromSide":"bottom","toNode":"igs","toSide":"top"},
+		{"id":"e4","fromNode":"idx","fromSide":"bottom","toNode":"c2","toSide":"top"},
+		{"id":"e5","fromNode":"idx","fromSide":"bottom","toNode":"omni","toSide":"top"},
+		{"id":"e6","fromNode":"igs","fromSide":"bottom","toNode":"phys","toSide":"top"},
+		{"id":"e7","fromNode":"c2","fromSide":"bottom","toNode":"ml","toSide":"top"},
+		{"id":"e8","fromNode":"omni","fromSide":"bottom","toNode":"ml","toSide":"top"},
+		{"id":"e9","fromNode":"phys","fromSide":"right","toNode":"ml","toSide":"left"},
+		{"id":"e10","fromNode":"ml","fromSide":"bottom","toNode":"dash","toSide":"top"},
+		{"id":"e11","fromNode":"ml","fromSide":"bottom","toNode":"exp","toSide":"top"}
+	]
+}
