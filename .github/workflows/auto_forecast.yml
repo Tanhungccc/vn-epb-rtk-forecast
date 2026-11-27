@@ -1,0 +1,50 @@
+name: VN EPB Auto Forecast & Telegram Alert
+
+on:
+  schedule:
+    # Chạy tự động mỗi 30 phút (giờ UTC)
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    # Cho phép bấm nút chạy thủ công trên tab Actions của GitHub
+
+jobs:
+  forecast-and-alert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Restore alert cooldown & forecast cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/alert_state.json
+            data/forecast_log.parquet
+          key: epb-state-${{ github.run_id }}
+          restore-keys: |
+            epb-state-
+
+      - name: Run Live Forecast & Telegram Alert
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python -m src.send_alert
+
+      - name: Daily COSMIC-2 Verification (02:00 UTC / 09:00 LT)
+        if: github.event_name == 'schedule' && startsWith(github.event.schedule, '*/30') == false || true
+        run: |
+          python -c "from datetime import datetime, timezone; h=datetime.now(timezone.utc).hour; m=datetime.now(timezone.utc).minute; import subprocess; subprocess.run(['python','-m','src.verify_forecasts'], check=False) if (h==2 and m<30) else print('Skip verify outside 02:00 UTC')"
