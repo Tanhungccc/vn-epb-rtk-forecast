@@ -18,7 +18,11 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-if sys.stdout.encoding and sys.stdout.encoding.lower() not in ("utf-8", "utf8"):
+if sys.stdout is None:
+    _log_f = open(ROOT / "data" / "verify_forecasts.log", "a", encoding="utf-8", buffering=1)
+    sys.stdout = _log_f
+    sys.stderr = _log_f
+elif getattr(sys.stdout, "encoding", None) and sys.stdout.encoding.lower() not in ("utf-8", "utf8"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from src import precursors, scnlv2  # noqa: E402
