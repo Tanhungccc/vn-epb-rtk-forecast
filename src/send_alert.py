@@ -149,6 +149,10 @@ def send_telegram_alert(dry_run: bool = False, force: bool = False) -> dict:
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    if "TELEGRAM_BOT_TOKEN" in token:
+        token = token.split("TELEGRAM_BOT_TOKEN", 1)[-1].lstrip(":= ").strip()
+    if "TELEGRAM_CHAT_ID" in chat_id:
+        chat_id = chat_id.split("TELEGRAM_CHAT_ID", 1)[-1].lstrip(":= ").strip()
     if not token or not chat_id:
         return {
             "sent": False,
