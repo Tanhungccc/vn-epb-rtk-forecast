@@ -110,6 +110,7 @@ def build_alert_payload(live: dict) -> tuple[str, str]:
         "",
         f"☀️ SWPC: Bz={sw.get('bz_gsm', float('nan')):.1f} nT | v={sw.get('v_sw', float('nan')):.0f} km/s | Kp={sw.get('kp', float('nan')):.1f}",
         "👉 Khuyến nghị: Kiểm tra kỹ Fix RTK và hạn chế bay UAV tầm xa vào khung giờ cao điểm.",
+        "🌐 Chi tiết 3D: https://vn-epb-rtk-forecast-57mcejdfsncm9vthegm3at.streamlit.app/",
     ]
     return highest, "\n".join(lines)
 
