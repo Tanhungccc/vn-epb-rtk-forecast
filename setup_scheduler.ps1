@@ -34,7 +34,7 @@ Register-ScheduledTask -TaskName "VN_EPB_Retrain_Monthly" -Action $RetrainAction
 
 # 4. Tự bật Telegram Chatbot (/dubao, /swpc, /web) khi đăng nhập Windows
 $BotAction = New-ScheduledTaskAction -Execute $PythonwExe -Argument "-m src.telegram_bot" -WorkingDirectory $ProjectRoot
-$BotTrigger = New-ScheduledTaskTrigger -AtLogOn
+$BotTrigger = New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME
 Register-ScheduledTask -TaskName "VN_EPB_Telegram_Bot" -Action $BotAction -Trigger $BotTrigger -Description "Chatbot Telegram tương tác cho hệ thống dự báo EPB Việt Nam." -Force
 
 Write-Host "Đã đăng ký thành công 4 tác vụ tự động trên Windows Task Scheduler:" -ForegroundColor Green
